@@ -1,0 +1,75 @@
+<!-- Inside index.html -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8" />
+	<meta content=
+		"BeCarRental"
+		author="Kushal" />
+	<title>Becarrental</title>
+</head>
+
+<body>
+	<hr/>
+	<h2>Delta X5</h2>
+	<h3>Description</h3>
+
+	<ul>
+		<li>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Assumenda, perspiciatis.</li>
+		<li>
+			Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nulla, iure.
+		</li>
+		<li>Lorem ipsum dolor sit amet.</li>
+	</ul>
+
+	<span> Cost:- 5000 Rupees
+		<button id="pay-button" >
+			Pay Now & Rent it
+		</button>
+	</span>
+	<hr/>
+<!--Inside index.html -->
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+<script>
+var options = {
+	"key": "rzp_test_Zbzg8j2SaODes6",
+	"amount": "1000000",
+	"currency": "INR",
+	"order_id": "order_KvIYYkIajPiOgZ",
+	"handler": function (response){
+		console.log(response)
+		alert("This step of Payment Succeeded");
+	},
+	"prefill": {
+		//Here we are prefilling random contact
+		"contact":"12345567753",
+		//name and email id, so while checkout
+		"name": "Kushal",
+		"email": "Kushaltest@gmail.com"
+	},
+	"theme": {
+		"color": "#2300a3"
+	}
+};
+var razorpayObject = new Razorpay(options);
+console.log(razorpayObject);
+razorpayObject.on('payment.failed', function (response){
+		console.log(response);
+		alert("This step of Payment Failed");
+});
+	
+document.getElementById('pay-button').onclick = function(e){
+	razorpayObject.open();
+	e.preventDefault();
+}
+</script>
+
+	<!-- Processing Payment Checkout -->
+	<!-- We will write code for payment here,
+		Replace this comment with the code we
+		are explaining below in step 5 of the
+		article -->
+</body>
+
+</html>
